@@ -1,0 +1,6 @@
+source :rubygems
+
+gem "grape"
+gem "shotgun"
+gem "sequel"
+gem "sqlite3"

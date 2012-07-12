@@ -1,0 +1,8 @@
+source :rubygems
+
+gem "her", :path => "/Users/remi/Code/her"
+gem "pry"
+gem "awesome_print", :require => "ap"
+
+gem "faraday_middleware"
+gem "simple_oauth"
