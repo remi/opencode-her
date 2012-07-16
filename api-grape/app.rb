@@ -5,14 +5,17 @@ module BluthCompany
     # Filters and helpers
     # -------------------------------------------------------------
     before do
+      logger = Logger.new(STDOUT)
+      logger.formatter = lambda { |severity, datetime, progname, msg| "#{msg}\n" }
       loggable_params = params.to_hash.not(:route_info)
-      puts "\n#{request.env["REQUEST_METHOD"]} #{request.path} at #{Time.now}"
-      puts "  Authorization: #{request.env["HTTP_AUTHORIZATION"]}" if request.env["HTTP_AUTHORIZATION"]
-      puts "  Parameters: #{loggable_params}" if loggable_params.any?
+
+      logger.info "\n#{request.env["REQUEST_METHOD"]} #{request.path} at #{Time.now}"
+      logger.info "  Authorization: #{request.env["HTTP_AUTHORIZATION"]}" if request.env["HTTP_AUTHORIZATION"]
+      logger.info "  Parameters: #{loggable_params}" if loggable_params.any?
     end
 
     rescue_from NoMethodError do |e|
-      rack_response MultiJson.dump({ :errors => ["Oops, something wrong happened."], :exception => e })
+      rack_response MultiJson.dump(:errors => ["Oops, something wrong happened."], :exception => e)
     end
 
     helpers do
