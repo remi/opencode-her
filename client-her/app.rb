@@ -2,19 +2,23 @@ require "logger"
 require "bundler"
 Bundler.require
 
-Her::API.setup :base_uri => "http://localhost:4002", do |connection|
+# Her
+# -------------------------------------------------------------
+Her::API.setup :base_uri => "http://localhost:4002", do |c|
   # Request middleware
-  connection.use Her::Middleware::AcceptJSON
-  connection.use Faraday::Request::UrlEncoded
+  c.use Her::Middleware::AcceptJSON
+  c.use Faraday::Request::UrlEncoded
 
   # Response middleware
-  connection.use Faraday::Response::Logger, Logger.new(STDOUT, :level => Logger::INFO).tap { |l| l.level = Logger::INFO }
-  connection.use Her::Middleware::DefaultParseJSON
+  c.use Faraday::Response::Logger, Logger.new(STDOUT, :level => Logger::INFO).tap { |l| l.level = Logger::INFO }
+  c.use Her::Middleware::DefaultParseJSON
 
   # Adapters
-  connection.use Faraday::Adapter::NetHttp
+  c.use Faraday::Adapter::NetHttp
 end
 
+# Models
+# -------------------------------------------------------------
 class User
   include Her::Model
   belongs_to :organization
@@ -24,4 +28,6 @@ class Organization
   include Her::Model
 end
 
+# Console
+# -------------------------------------------------------------
 Pry.start

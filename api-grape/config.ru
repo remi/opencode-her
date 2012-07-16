@@ -5,9 +5,10 @@ Bundler.require
 # -------------------------------------------------------------
 require "./lib/hash_ext.rb"
 
-# Configuration
+# Database
 # -------------------------------------------------------------
 $db = Sequel.sqlite :database => "bluth.db"
+
 $db.create_table? :users do
   primary_key :id
   String :username
@@ -20,6 +21,8 @@ $db.create_table? :organizations do
   String :name
 end
 
+# RABL
+# -------------------------------------------------------------
 Rabl.configure do |config|
   config.include_json_root = false
   config.include_child_root = false
@@ -30,5 +33,7 @@ end
 class User < Sequel::Model; end
 class Organization < Sequel::Model; end
 
+# Rack app
+# -------------------------------------------------------------
 require "./app.rb"
 run BluthCompany::API
