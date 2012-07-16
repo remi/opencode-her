@@ -1,8 +1,13 @@
 source :rubygems
 
+# Her
 gem "her", :path => "/Users/remi/Code/her"
-gem "pry"
-gem "awesome_print", :require => "ap"
 
+# Fun!
+gem "pry"
+gem "awesome_print"
+
+# Additional middleware
 gem "faraday_middleware"
 gem "simple_oauth"
+gem "dalli"

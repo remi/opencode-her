@@ -1,6 +1,7 @@
 source :rubygems
 
 gem "grape"
-gem "shotgun"
+gem "thin"
 gem "sequel"
 gem "sqlite3"
+gem "rabl"
