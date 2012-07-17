@@ -13,7 +13,7 @@ $db.create_table? :users do
   primary_key :id
   String :username
   String :email
-  String :organization_id
+  Integer :organization_id
 end
 
 $db.create_table? :organizations do
